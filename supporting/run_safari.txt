@@ -1,0 +1,9 @@
+The application looks like the following, in case you can't read the binary:
+
+
+
+tell application "Safari" to open location "http://localhost:3002/"
+
+delay 5
+
+tell application "Safari" to close every window
