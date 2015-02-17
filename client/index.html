@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Test for Safari Faye bug</title>
-    <script src="node_modules/faye/browser/faye-browser.js"></script>
+    <!-- <script src="node_modules/faye/browser/faye-browser.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>
         $(function(){
             'use strict';
-            var client = new Faye.Client('http://localhost:8000/faye');
+
+            var socket = new WebSocket('ws://localhost:8000/');
 
             var $curTime = $('#current-time');
 
-            var subscription = client.subscribe('/time', function(message) {
-                $curTime.html(message.currentTime);
-            });
-
-            subscription.then(function() {
-                console.log('Subscription is now active!');
-            }, function(){
-                console.error('Subscription failed.');
-            });
+            socket.onmessage = function(event){
+                // console.log(event);
+                $curTime.html(event.data);
+            };
         });
     </script>
 </head>
